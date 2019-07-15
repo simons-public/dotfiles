@@ -1,5 +1,3 @@
-nnoremap # "
-
 # .vimrc
 
 ## vim-plug
