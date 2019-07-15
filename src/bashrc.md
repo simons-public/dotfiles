@@ -8,7 +8,8 @@
 
 ### Source completion files if available
 
-    source /usr/local/etc/bash_completion
+    [ -f /usr/local/etc/bash_completion ] &&\
+        source /usr/local/etc/bash_completion
 
 ### add /usr/local/bin to path
 
