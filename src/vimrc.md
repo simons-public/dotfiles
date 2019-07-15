@@ -53,7 +53,9 @@ nnoremap # "
     set cursorline          "Highlight current line
     set cursorcolumn        "Highlight current column
     set pastetoggle=<F5>    "F5 paste toggle
-    set cryptmethod=blowfish "use blowfish instead of zip enc
+    if !has('nvim')
+        set cryptmethod=blowfish "use blowfish instead of zip
+    endif
     set autoindent          "Auto indent
     set smartindent         "Smart indent
     set tabstop=4           "Smaller tabs

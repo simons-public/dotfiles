@@ -19,6 +19,7 @@ install:
 	ln -sf ~/.config/dotfiles/inputrc	~/.inputrc
 	ln -sf ~/.config/dotfiles/tmux.conf ~/.tmux.conf
 	ln -sf ~/.config/dotfiles/vimrc		~/.vimrc
+	ln -sf ~/.config/dotfiles/vimrc		~/.nvimrc
 
 package:
 	tar czf dotfiles.tar.gz dotfiles
