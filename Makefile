@@ -6,6 +6,7 @@ rcfiles:
 	cp src/bashrc.md 		dotfiles/bashrc
 	cp src/bash_profile.md 	dotfiles/bash_profile
 	cp src/tmux.conf.md		dotfiles/tmux.conf
+	sed -e 's/^#/"#/' src/vimrc.md > dotfiles/vimrc
 
 bashprompt:
 	mkdir -p dotfiles/bin
@@ -17,6 +18,7 @@ install:
 	ln -sf ~/.config/dotfiles/bashrc 	~/.bashrc
 	ln -sf ~/.config/dotfiles/inputrc	~/.inputrc
 	ln -sf ~/.config/dotfiles/tmux.conf ~/.tmux.conf
+	ln -sf ~/.config/dotfiles/vimrc		~/.vimrc
 
 package:
 	tar czf dotfiles.tar.gz dotfiles
