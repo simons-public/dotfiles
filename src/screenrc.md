@@ -26,3 +26,7 @@
 ### start with UTF-8
 
     defutf8 on
+
+### allow mouse scrolling
+
+    termcapinfo xterm* ti@:te@
