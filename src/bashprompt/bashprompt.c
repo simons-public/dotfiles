@@ -15,8 +15,14 @@
 #define BULLET "•"
 #define PROMPT_CHARACTER "↝"
 
-int main()
+int main(int argc, char *argv[])
 {
+    if (argc < 2) {
+        fprintf(stdout, "usage: "
+        "PROMPT_COMMAND='PS1=\"$(%s ${?})\"'\n", argv[0]);
+        exit(1);
+    }
+
     setlocale(LC_ALL, "en_US.utf8");
     char path[FILENAME_MAX];
     char hostname[HOSTNAME_MAX];
@@ -37,14 +43,12 @@ int main()
     fprintf(stdout, "%s\n", RESET);
 
     /* first line */
-    if (getenv("EXIT")) {
-        /* if EXIT code is available, print status */
-        if (strncmp(getenv("EXIT"), "0", 10)) {
-            fprintf(stdout, "%s%s%s", LI_RED, BULLET, RESET);
-        } else {
-            fprintf(stdout, "%s%s%s", GREEN, BULLET, RESET);
-        }
+    if (strncmp(argv[1], "0", 10)) {
+        fprintf(stdout, "%s%s%s", LI_RED, BULLET, RESET);
+    } else {
+        fprintf(stdout, "%s%s%s", GREEN, BULLET, RESET);
     }
+
     fprintf(stdout, "%s%s%s\n", DIM, path, RESET);
     /* end first line */
 

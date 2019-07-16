@@ -30,7 +30,7 @@
 ### prompt command
 
     test -f ~/.config/dotfiles/bin/bashprompt &&\
-        export PROMPT_COMMAND='export EXIT=$? ; PS1=$(~/.config/dotfiles/bin/bashprompt)'
+        export PROMPT_COMMAND='PS1="$(~/.config/dotfiles/bin/bashprompt ${?})"'
 
 ### xterm 256 colors
 
