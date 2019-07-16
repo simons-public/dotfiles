@@ -1,7 +1,7 @@
 all: rcfiles bashprompt
-	mkdir -p dotfiles
 
 rcfiles:
+	mkdir -p dotfiles
 	cp src/inputrc.md 		dotfiles/inputrc
 	cp src/bashrc.md 		dotfiles/bashrc
 	cp src/bash_profile.md 	dotfiles/bash_profile

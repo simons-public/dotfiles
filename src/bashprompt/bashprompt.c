@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 
 
     // set terminal title
-    fprintf(stdout, "\\[\e]2;\\u@\\h:\\w\\a\\]");
+    fprintf(stdout, "\\[\x1B]2;\\u@\\h:\\w\\a\\]");
 
     // reset & empty line
     fprintf(stdout, "%s\n", RESET);
