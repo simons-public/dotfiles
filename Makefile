@@ -2,6 +2,7 @@ all: rcfiles bashprompt
 
 rcfiles:
 	mkdir -p dotfiles
+	touch dotfiles/hushlogin
 	cp src/inputrc.md 		dotfiles/inputrc
 	cp src/bashrc.md 		dotfiles/bashrc
 	cp src/bash_profile.md 	dotfiles/bash_profile
@@ -20,6 +21,7 @@ install:
 	ln -sf ~/.config/dotfiles/tmux.conf ~/.tmux.conf
 	ln -sf ~/.config/dotfiles/vimrc		~/.vimrc
 	ln -sf ~/.config/dotfiles/vimrc		~/.nvimrc
+	ln -sf ~/.config/dotfiles/hushlogin ~/.hushlogin
 
 package:
 	tar czf dotfiles.tar.gz dotfiles
