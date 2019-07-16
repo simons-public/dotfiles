@@ -2,7 +2,8 @@
 
 ## tmux settings
 
-    set-option -g default-shell "/usr/local/bin/bash"
+    if shell "which /usr/local/bin/bash" "set-option -g default-shell /usr/local/bin/bash"
+    if-shell "which /opt/local/bin/bash" "set-option -g default-shell /opt/local/bin/bash"
     set-option -g status on
     set-option -g status-interval 2
 

@@ -52,6 +52,10 @@
 
 ## Misc
 
+### reload inputrc
+
+    Control-.: re-read-init-file
+
 ### blink matching parenthesis
 
     set blink-matching-paren

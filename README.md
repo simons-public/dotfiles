@@ -2,7 +2,7 @@
 
 ## Install
 
-    git clone
+    git clone url
     cd dotfiles
     make
     make install
@@ -11,3 +11,9 @@
 
     make
     make package
+
+## Config Files
+
+- [.bashrc](src/bashrc.md)
+- [.twmrc](src/twmrc.md)
+- [.inputrc](src/inputrc.md)

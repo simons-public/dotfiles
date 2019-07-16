@@ -58,3 +58,4 @@
 
     [include]
     path = ~/.gitconfig.local
+    path = ~/.gituser

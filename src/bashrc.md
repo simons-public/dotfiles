@@ -6,18 +6,38 @@
 
     [ -z "$PS1" ] && return
 
+### Reset Terminal Colors for Command Outputs
+
+    PS0=$(tput sgr0)
+
+### Prompts
+
+    test -f ~/.config/dotfiles/bin/bashprompt &&\
+        export PROMPT_COMMAND='PS1="$(~/.config/dotfiles/bin/bashprompt ${?})"'
+    PS2="↝ "
+    PS4="${EPOCHREALTIME}↝ "
+
 ### Source completion files if available
 
     [ -f /usr/local/etc/bash_completion ] &&\
         source /usr/local/etc/bash_completion
+    [ -f /opt/local/etc/profile.d/bash_completion.sh ] &&\
+        source /opt/local/etc/profile.d/bash_completion.sh
 
 ### add /usr/local/bin to path
 
-    export PATH="/usr/local/bin:$PATH"
+    test -d /usr/local &&\
+        export PATH="/usr/local/bin:$PATH"
+
+### add macports path
+
+    test -d /opt/local &&\
+        export PATH="/opt/local/bin:/opt/local/sbin:${PATH}" &&\
+        export MANPATH="/opt/local/share/man:${MANPATH}"
 
 ### sudo aliases for admin commands
 
-    for i in systemctl service reboot; do
+    for i in systemctl service reboot port; do
         alias ${i}="sudo ${i}"
     done
 
@@ -27,10 +47,9 @@
     alias gerp=grep
     alias Grep=grep
 
-### prompt command
+### macOS Terminal.app prompt_command
 
-    test -f ~/.config/dotfiles/bin/bashprompt &&\
-        export PROMPT_COMMAND='PS1="$(~/.config/dotfiles/bin/bashprompt ${?})"'
+    type update_terminal_cwd &>/dev/null && export PROMPT_COMMAND+="; update_terminal_cwd"
 
 ### xterm 256 colors
 
@@ -56,4 +75,106 @@
 
 ### use line numbers in less
 
-    alias less="less -N"
+    # alias less="less -N"
+
+### use vim as pager and man
+
+    if which vim >/dev/null; then
+        function vless() { [[ -p /dev/stdin ]] && view -c "map q ZQ" - || view -c "map q ZQ" ${@}; }
+        alias less=vless
+        function vman()  { view -c "map q ZQ q" -c "runtime ftplugin/man.vim" -c "Man ${@}" -c "only"; }
+        alias man=vman
+    fi
+
+### alias for google-chrome
+
+    MAC_CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+    test -f "${MAC_CHROME}" &&\
+        alias google-chrome='"${MAC_CHROME}"'
+
+### save to pdf using chrome headless
+
+    function saveweb() {
+        google-chrome --headless --print-to-pdf "$@" &&\
+        echo "File saved to output.pdf"
+    }
+
+### cd extension
+
+    function cd() {
+        builtin cd "${@}"
+        [[ -d .git ]] && git status && git log --pretty=oneline -n 5 --graph --abbrev-commit
+    }
+
+### command not found handle
+
+    function command_not_found_handle() {
+        cmd=${1}
+
+        if ssh-keygen -F ${cmd} &>/dev/null ; then
+            echo "ssh ${cmd}"
+            ssh ${cmd}
+            return 0
+        fi
+
+        [[ $cmd =~ ^[a-zA-Z0-9_]*$ ]] && if ! [ -z ${!cmd} ]; then
+            echo ${cmd}: ${!cmd}
+            return 0
+        fi
+
+        [ -z "$2" ] && if host ${cmd} &>/dev/null ; then
+            dig +short ${cmd}
+            return 0
+        fi
+
+        while true; do
+            printf "\aYou didn't say the magic word!"
+            sleep 1
+        done
+    }
+
+### esp-idf activation
+
+    function esp_activate() {
+        export IDF_PATH=~/esp/esp-idf
+        if ! echo ${PATH} | grep esp
+          then
+          source ~/esp/esp-idf/add_path.sh
+        fi
+    }
+
+### common aliases
+
+    alias ll='ls -la'
+    alias la='ls -a'
+
+### use pythonrc
+
+    [[ -f ~/.pythonrc ]] && export PYTHONSTARTUP=~/.pythonrc
+
+### prefer python3 if available
+
+    which python3>/dev/null && alias python=python3
+
+### set encoding
+
+    export LANG=en_US.UTF-8
+
+### use xresources
+
+    if test -e /tmp/.X11-unix/X0; then
+        export DISPLAY=:0
+        which xrdb &>/dev/null &&\
+            test -f ~/.Xresources &&\
+            xrdb ~/.Xresources &>/dev/null
+    fi
+
+### don't echo control characters
+
+    stty -echoctl
+
+### shortcut to source ble.sh
+
+    BLE_PATH=~/.config/dotfiles/lib/ble/ble.sh
+    test -f $BLE_PATH &&\
+        alias ble="source $BLE_PATH"

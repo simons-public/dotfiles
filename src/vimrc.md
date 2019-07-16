@@ -1,6 +1,8 @@
 # .vimrc
 
-## vim-plug
+## Vim Plugins
+
+### Install vim-plug If Not Available
 
     if !filereadable(expand("$HOME/.vim/autoload/plug.vim"))
         :echom "Installing vim-plug"
@@ -16,88 +18,222 @@
         endif
     endif
 
-## Vim plugins
+### Vim Plugins
 
     call plug#begin('~/.vim/plugged')
-        Plug 'altercation/vim-colors-solarized'
+        Plug 'flazz/vim-colorschemes'
+        Plug 'xolox/vim-misc'
+        Plug 'xolox/vim-colorscheme-switcher'
         Plug 'Raimondi/delimitMate'
         Plug 'nathanaelkane/vim-indent-guides'
         Plug 'Lokaltog/vim-powerline', { 'branch': 'develop' }
         Plug 'tpope/vim-fugitive'
     call plug#end()
 
-## Install plugins
+### Install Plugins on First Run
 
     if exists("g:first_run")
         PlugInstall
     endif
 
-## Powerline settings
+### Powerline settings
 
     let g:Powerline_symbols = 'fancy'
 
-## Abbreviations
+## Vim Settings
+
+### Skip Defaults
+
+    let skip_defaults_vim=1
+
+### Disable vi-Compatible Mode
+
+    set nocompatible
+
+### Show Hybrid (Relative + Absolute)
+
+    set number relativenumber
+
+### Don't Show the Mode
+
+    set noshowmode
+
+### Set Smaller Number Gutter
+
+    set numberwidth=1
+
+### Enable Syntax Highlighting
+
+    syntax enable
+
+### Highlight Current Line
+
+    set cursorline
+
+### Highlight Currrent Column
+
+    set cursorcolumn
+
+### Highlight 80 Character Margin
+
+    set colorcolumn=80
+
+### Set Dark Background
+
+    set background=dark
+
+### Use F5 for paste toggle
+
+    set pastetoggle=<F5>
+
+### Auto Smart Indentation
+
+    set smartindent
+
+### Tabs
+
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
+    set expandtab
+
+### Show Matching Brackets
+
+    set showmatch
+
+### Highlight Searching
+
+    set hlsearch
+
+### Incremental Searching
+
+    set incsearch
+
+### Ignore Case While Searching
+
+    set ignorecase
+
+### Unless Searching with Uppercase Characters
+
+    set smartcase
+
+### Show Commands Being Typed
+
+    set showcmd
+
+### Set Longer Command History
+
+    set history=1000
+
+### Set Longer Undo History
+
+    set undolevels=1000
+
+### Search Further for Modelines
+
+    set modelines=9000
+
+### Disable Bells
+
+    set noerrorbells
+    set novisualbell
+
+### Disable Startup Message
+
+    set shortmess+=I
+
+### Don't Use Backup Files (swp)
+
+    set nobackup
+
+### Use Tab Completion Menu
+
+    set wildmenu
+
+### Allow Buffer Switch Without Saving
+
+    set hidden
+
+### Switch to Existing Tab for Buffers
+
+    set switchbuf=usetab,newtab
+
+### Set Default Split Direction
+
+    set splitbelow
+    set splitright
+
+### Always Show Tabs
+
+    set showtabline=2
+
+### Always Show Status Line
+
+    set laststatus=2
+
+### Don't Obscure Long Lines with @
+
+    set display=lastline
+
+### Set Shell for !commands
+
+    set shell=/bin/sh
+
+### Use Mouse in Insert Mode
+
+    set mouse=i
+
+### Enable Folding
+
+    set foldenable
+    set foldmethod=syntax
+
+### Reload Files When Changed
+
+    set autoread
+
+### Always Allow Backspace
+
+    set backspace=indent,eol,start
+
+### Change Nonprinting Characters
+
+    set listchars=tab:\ \ ,trail:█,space:\ ,eol:↩,extends:…,precedes:…,trail:\ ,conceal:*
+
+### persistent undo
+
+    if has('persistent_undo')
+        set undofile undodir=~/.vim/undo
+    endif
+
+### Abbreviations
+
+## Typos
 
     ab teh the
 
-## Vim Settings
+## Command Shortcuts
 
-    tab sball               "Use tabs for new buffers
-    syntax enable           "Turn on syntax highlighting
-    syntax on               "Overule syntax with default
-    set nocompatible        "Get out of vi-compatible mode
-    set nu                  "Turn on line numbers
-    set relativenumber!     "Relative line numbers
-    set cursorline          "Highlight current line
-    set cursorcolumn        "Highlight current column
-    set pastetoggle=<F5>    "F5 paste toggle
-    if !has('nvim')
-        set cryptmethod=blowfish "use blowfish instead of zip
-    endif
-    set autoindent          "Auto indent
-    set smartindent         "Smart indent
-    set tabstop=4           "Smaller tabs
-    set softtabstop=4       "fix delete on space tabs
-    set shiftwidth=4
-    set showmatch           "Show matching brackets
-    set incsearch           "Incremental searching
-    set t_ti= t_te=         "Keep vim on screen
-    set ruler               "Keep vim ruler on
-    set history=1000        "Long history
-    set undolevels=1000     "Long undo history
-    set hidden              "Change buffer without saving
-    set ignorecase          "Ignore case when searching
-    set hlsearch            "Highlight searches
-    set incsearch           "Incremental search
-    set nolazyredraw        "Don't redraw while executing macros
-    set magic               "Set magic on for regex
-    set showmatch           "Highlight matching brackets
-    set noerrorbells        "No sound on errors
-    set novisualbell        "No blink on errors
-    set shortmess+=I        "Disable startup message
-    set showcmd             "Show the command being typed
-    set expandtab           "No real tabs
-    set numberwidth=1       "Number gutter small (will expand)
-    set wildmenu            "Cool tab completion
-    set smartcase           "Smart text case
-    set nobackup            "Dont use backup files
-    set laststatus=2        "Show status line always
-    set title               "Set xterm title
-    set titleold=""         "No "Thanks for flying Vim"
-    set wrap lbr            "Wrap lines between words
-    set display=lastline    "Don't hide lines that are too long with @
-    set switchbuf=usetab,newtab
-    set shell=/bin/sh       "Use /bin/sh for !command
-    set mouse=i            "Mouse support
-    set foldenable          "Turn on folding
-    "set foldmethod=marker   "Enable marker folds: {{{}}}
-    set foldmethod=syntax
-    set autoread            "auto reload when file changes
-    set backspace=2         "let backspace work like other editors
-    "set listchars=tab:\ ⋅,eol:↩,extends:…,trail:⋅  "better list characters"
-    set colorcolumn=80      "highlight column 80
+    ab tn tabn
+    ab tp tabp
 
-## Insert sheband and set x flag for scripts
+## Default to Vertical Split
+
+    ab hsplit split
+    ab split vsplit
+
+## Auto Commands
+
+### Auto Open New Buffers in Tabs
+
+    autocmd VimEnter,BufAdd,BufNewFile * tabo | tab sball
+
+### Highlight Trailing Whitespace & Real Tabs
+
+    autocmd BufWinEnter,BufWinLeave,InsertEnter,InsertLeave <buffer> match Cursor /\s\+$/
+    autocmd BufWinEnter,BufWinLeave,InsertEnter,InsertLeave <buffer> match Cursor /\t/
+
+### Insert sheband and set x flag for scripts
 
     augroup SHEBANG
         au!
@@ -107,20 +243,11 @@
         au BufWritePost * if getline(1) =~ "#!/.*"| :!chmod a+x <afile>
     augroup END
 
-## Save view options
-
-    au BufWinLeave * silent! mkview
-    au BufWinEnter * silent! loadview
-
-## Load new vimrc changes
-
-    autocmd! BufWritePost .vimrc source ~/.vimrc
-
-## Expand tabs in makefiles
+### Expand tabs in makefiles
 
     autocmd FileType make setlocal noexpandtab
 
-## openssl encrypted files
+### openssl encrypted files
 
     augroup AES
         au!
@@ -136,60 +263,48 @@
         au BufWritePost *.aes256 set nobin
     augroup END
 
-## Change term settings for lin/mac
+## Keymaps
 
-    set background=dark
-
-## allow semicolon for command mode
+### Also Use Semicolon for Commands
 
     nore ; :
     nore , ;
 
-## Page down with space in normal mode
+### Page Down with Space in Normal Mode
 
     nore <Space> <c-D>
 
-## Shift Move
+### Switch Buffer Shortcuts
 
-    nore <S-j> jjjjj
-    nore <S-k> kkkkk
-    nore <S-h> hhhhh
-    nore <S-l> lllll
+    map <C-n> :tabn <Enter>
+    map <C-p> :tabp <Enter>
 
-## Buffer shortcuts
-
-    map <C-n> :bn <Enter>
-    map <C-p> :bp <Enter>
-
-## execute script shortcut
+### Execute Script Shortcut
 
     map <C-b> :new \| r!./#<Enter>
 
-## Wincmds
+### Window Command Shortcuts
 
-    "nore <C-l> :wincmd l <Enter>
-    "nore <C-h> :wincmd h <Enter>
-    "nore <C-k> :wincmd k <Enter>
-    "nore <C-j> :wincmd j <Enter>
+    nore <C-l> :wincmd l <Enter>
+    nore <C-h> :wincmd h <Enter>
+    nore <C-k> :wincmd k <Enter>
+    nore <C-j> :wincmd j <Enter>
 
-## Easy switch modes with jj
+### Quit with C-x
+
+    nore <C-x> :q <Enter>
+
+### Quick Switch to Command Mode with jj
 
     imap jj <Esc>
 
-## Sudo write with w!! command
+### Sudo Write with w!! Command
 
     cmap w!! w !sudo tee % >/dev/null
 
-## Cheatsheet
+## Functions
 
-    fu! Cheat()
-        new cheat
-        read ~/.vim/cheatsheet.txt
-        nore q :q!<enter>
-    endfunction
-    ca cheat call Cheat()
-
-## Templates
+### Load Templates
 
     fu! Template()
         let $template = "~/.vim/templates/" . input("Template: ") . ".template"
@@ -197,20 +312,23 @@
     endfunction
     ca template call Template()
 
-## Higlight trailing whitespace
+## Color Settings
 
-    highlight TrailingWhitespace ctermbg=red guibg=red
-    match TrailingWhitespace /\s\+$/
+### Highlights
 
-## Hilight cursorline/column
+    function! SetHighlights()
+        highlight CursorLine   cterm=NONE   ctermbg=black term=NONE
+        highlight CursorColumn cterm=NONE   ctermbg=black term=NONE
+        highlight ColorColumn  cterm=NONE   ctermbg=black term=NONE
+        highlight LineNR       ctermbg=none ctermfg=green term=NONE
+        highlight TabLineFill  cterm=none   ctermbg=black term=NONE
+    endfunction
 
-    hi CursorLine cterm=NONE ctermbg=black
-    hi CursorColumn cterm=NONE ctermbg=black
+    augroup ColorChange
+        autocmd!
+        autocmd ColorScheme * call SetHighlights()
+    augroup END
 
-## Hilight number gutter
+### Colorscheme
 
-    hi LineNR ctermbg=none ctermfg=green
-
-## Colorscheme
-
-    colorscheme default
+    colorscheme getafe
