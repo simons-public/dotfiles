@@ -13,9 +13,9 @@
 
 ### PS1 and PS2 Prompts
 
-    sys.ps1 = "\x01\x1B[32m(python%d.%d)↝\x1B[0m\x02 " % (sys.version_info.major, sys.version_info.minor)
+    sys.ps1 = f"{GREEN}(python%d.%d)↝{RESET} " % (sys.version_info.major, sys.version_info.minor)
 
-    sys.ps2 = "\x01\x1B[2m\x1B[32m(python%d.%d)…\x1B[0m\x02 " % (sys.version_info.major, sys.version_info.minor)
+    sys.ps2 = f"{DIM}{GREEN}(python%d.%d)…{RESET} " % (sys.version_info.major, sys.version_info.minor)
 
 ### Colored tracebacks
 
